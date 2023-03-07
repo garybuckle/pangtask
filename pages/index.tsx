@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
 import { Island } from '$pangea/island.ts'
 import Counter from '../islands/Counter.tsx'
 import Header from '../islands/Header.tsx'
 import { css, combine } from '$pangea/css.ts'
 import About from '../pages/About.tsx'
 import Tasks from '../pages/Tasks.tsx'
-
 import Button from '../islands/Button.tsx'
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 // import 'npm:react-router-dom@^6.4'
 import {
   BrowserRouter as Router,
@@ -16,6 +16,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom'
+
 const Page = ({ title }: { title: string }) => {
   return (
     <>
@@ -35,9 +36,6 @@ const Page = ({ title }: { title: string }) => {
           app={Header}
           data={{ title: 'Pangea Task Tracker' }}
         />
-        <div>
-          <Tasks />
-        </div>
       </div>
     </>
   )
