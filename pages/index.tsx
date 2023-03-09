@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Island } from '$pangea/island.ts'
 import Counter from '../islands/Counter.tsx'
@@ -7,17 +7,16 @@ import { css, combine } from '$pangea/css.ts'
 import About from '../pages/About.tsx'
 import Tasks from '../pages/Tasks.tsx'
 import Button from '../islands/Button.tsx'
-import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-// import 'npm:react-router-dom@^6.4'
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes,
-} from 'react-router-dom'
 
 const Page = ({ title }: { title: string }) => {
+  const [tasks, setTask] = useState('')
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/`)
+      .then(async (res) => await res.json())
+      .then((json) => setTask(json))
+  })
+
   return (
     <>
       <div
@@ -36,6 +35,11 @@ const Page = ({ title }: { title: string }) => {
           app={Header}
           data={{ title: 'Pangea Task Tracker' }}
         />
+        <div>
+          {tasks.map((task) => {
+            return <p>{task.text}</p>
+          })}
+        </div>
       </div>
     </>
   )
